@@ -1,0 +1,11 @@
+
+db.brokenpoint.py	查看当前数据库中保存的曲目数目以及对应到 track_list.npy数组中的位置。
+
+db.dumplist.py		以特定规则将数据库数据保存为numpy数组。
+
+svmtraining.py
+gen_data_svm.py		整理训练数据，并训练retrieval函数中使用的svm分类器。
+
+songlist.py		从http://theoden.intra.douban.com中下载特定专辑的歌曲id
+
+

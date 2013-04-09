@@ -1,0 +1,31 @@
+installed python packages:
+	Numpy, Scipy, Mlpy
+    GNU-GSL, 
+
+sys.path.append("/var/shire")
+from corelib.doubanfs import fs
+data = fs.get('/song/small/%s.mp3'%track_id)
+binfile = open("bin.dat","wb")
+binfile.write(data)
+binfile.close()
+
+# visit back-end database (WRITE)
+from DoubanAlg import get_rivendell_store
+store = get_rivendell_store()
+store.execute('xxxx')
+
+mysql -hrivendell_m -ueye -psauron -P3503 rivendell
+
+# visit the Douban back-end database (READ)
+from DoubanAlg import gstore
+gstore.execute("select count(1) from radio_track_stats")
+
+working directory:
+/mfs/alg/tmp/wuqiong/
+
+run the program
+# local running via 10 cores
+python batchprocess.py -m process -p 10
+# grid computing via 10 cores at each cell
+sudo -u mesos python batchprocess.py -m mesos://master@boromir:5050 -p 10
+sudo -u alg python batchprocess.py -m mesos -p 8

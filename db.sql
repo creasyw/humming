@@ -1,0 +1,139 @@
+CREATE TABLE IF NOT EXISTS hash_dup_songs (
+    id		INT AUTO_INCREMENT PRIMARY KEY,	
+    original    MEDIUMINT UNSIGNED NOT NULL,
+    duplicate   MEDIUMINT UNSIGNED NOT NULL,
+    CONSTRAINT dup_songs UNIQUE (original, duplicate)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_dup_temp (
+    id		INT AUTO_INCREMENT PRIMARY KEY,	
+    original    MEDIUMINT UNSIGNED NOT NULL,
+    duplicate   MEDIUMINT UNSIGNED NOT NULL,
+    CONSTRAINT dup_songs UNIQUE (original, duplicate)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_0 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_1 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_2 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_3 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_4 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_5 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_6 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_7 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_8 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS hash_track_9 (
+    rid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    song_id	MEDIUMINT UNSIGNED NOT NULL,
+    time        MEDIUMINT UNSIGNED NOT NULL,
+    hid 	MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    INDEX (song_id),
+    CONSTRAINT track_info UNIQUE (song_id, time, hid)
+)ENGINE=MyISAM;
+
+
+
+
+CREATE TEMPORARY TABLE hash_track_target (
+    tid		BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    time	MEDIUMINT UNSIGNED NOT NULL,
+    hid		MEDIUMINT UNSIGNED NOT NULL,
+    INDEX (hid),
+    CONSTRAINT track_info UNIQUE (time, hid)
+)ENGINE=MyISAM;
+
+CREATE TEMPORARY TABLE hash_track_hitted (
+	tid BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	song_id MEDIUMINT UNSIGNED NOT NULL,
+	time MEDIUMINT UNSIGNED NOT NULL,
+	delta_t INT NOT NULL
+)ENGINE=MyISAM;
+
+INSERT INTO hash_track_hitted (song_id, time, delta_t)
+	SELECT
+	hash_track_working.song_id,
+	hash_track_working.time,
+	hash_track_working.time-hash_track_target.time
+	FROM hash_track_target LEFT JOIN hash_track_working USING (hid);
+
